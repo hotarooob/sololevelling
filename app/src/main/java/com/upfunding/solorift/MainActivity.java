@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
         private static final int WARRIOR = 2;
         private static final int SHOP = 3;
         private static final int BAG = 4;
-        private static final int MISSIONS = 5;
+        private static final int SCREEN_MISSIONS = 5;
         private static final int RESULT = 6;
         private static final int HISTORY = 7;
 
@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
             else if (screen == WARRIOR) drawWarrior(c);
             else if (screen == SHOP) drawShop(c);
             else if (screen == BAG) drawBag(c);
-            else if (screen == MISSIONS) drawMissions(c);
+            else if (screen == SCREEN_MISSIONS) drawMissions(c);
             else if (screen == HISTORY) drawHistory(c);
             else if (screen == RESULT) drawResult(c);
 
@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
             if (action == ACT_WARRIOR) { screen = WARRIOR; return; }
             if (action == ACT_SHOP) { offers = createStoreOffers(); screen = SHOP; return; }
             if (action == ACT_BAG) { screen = BAG; return; }
-            if (action == ACT_MISSIONS) { screen = MISSIONS; return; }
+            if (action == ACT_MISSIONS) { screen = SCREEN_MISSIONS; return; }
             if (action == ACT_HISTORY) { screen = HISTORY; return; }
             if (action == ACT_RESET) {
                 profile = new Profile();
@@ -467,12 +467,12 @@ public class MainActivity extends Activity {
         private ArrayList<String> advanceMissions() {
             ArrayList<String> done = new ArrayList<>();
             int guard = 0;
-            while (profile.missionIndex < MISSIONS.length && guard++ < 4) {
-                Mission m = MISSIONS[profile.missionIndex];
+            while (profile.missionIndex < MISSION_LIST.length && guard++ < 4) {
+                Mission m = MISSION_LIST[profile.missionIndex];
                 if (!isMissionComplete(m)) break;
                 profile.points += m.points;
                 done.add(m.title + " +" + m.points + " نقاط تطوير");
-                if (profile.missionIndex < MISSIONS.length - 1) profile.missionIndex++; else break;
+                if (profile.missionIndex < MISSION_LIST.length - 1) profile.missionIndex++; else break;
             }
             return done;
         }
@@ -775,11 +775,11 @@ public class MainActivity extends Activity {
 
         private void drawMissions(Canvas c) {
             drawScreenHeader(c, "مهام سولو", "المهام تمنح نقاط التطوير مثل نظام البوت الأصلي");
-            Mission m = MISSIONS[Math.min(profile.missionIndex, MISSIONS.length - 1)];
+            Mission m = MISSION_LIST[Math.min(profile.missionIndex, MISSION_LIST.length - 1)];
             RectF r = new RectF(w * 0.06f, h * 0.19f, w * 0.94f, h * 0.62f);
             drawCard(c, r, card);
             StringBuilder sb = new StringBuilder();
-            sb.append("المهمة رقم: ").append(profile.missionIndex + 1).append(" / ").append(MISSIONS.length).append("\n");
+            sb.append("المهمة رقم: ").append(profile.missionIndex + 1).append(" / ").append(MISSION_LIST.length).append("\n");
             sb.append(m.title).append("\n").append(m.desc).append("\nالجائزة: ").append(m.points).append(" نقاط تطوير\n\nالتقدم:");
             for (Req req : m.reqs) sb.append("\n• ").append(labelForReq(req.key)).append(": ").append(Math.min(req.need, getReqValue(req.key))).append("/").append(req.need);
             drawMultiline(c, sb.toString(), r.right - 26, r.top + 42, sp(16), Paint.Align.RIGHT, ink, 12);
@@ -1212,7 +1212,7 @@ public class MainActivity extends Activity {
                 new Item("quick_boots", "غبار السرعة", "consumable", RARITIES[0], 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, "نسخة لاحقة: يرفع السرعة مؤقتاً.")
         };
 
-        static final Mission[] MISSIONS = new Mission[]{
+        static final Mission[] MISSION_LIST = new Mission[]{
                 new Mission("بداية المحارب", "اقتل 3 وحوش بيتا.", 5, new Req("beta", 3)),
                 new Mission("اختبار البوابة", "اقتل 5 وحوش من أي ندرة.", 4, new Req("total", 5)),
                 new Mission("كاسر الغيلان", "اقتل 8 وحوش بيتا.", 6, new Req("beta", 8)),
