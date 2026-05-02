@@ -1,0 +1,21 @@
+طريقة بناء APK من GitHub بدون Android Studio
+
+1. افتح GitHub واعمل Repository جديد.
+2. فك ضغط SoloRift_NativeAndroid.zip على جهازك.
+3. ارفع محتويات مجلد SoloRift_NativeAndroid إلى GitHub:
+   app/
+   .github/
+   build.gradle
+   settings.gradle
+   README_AR.txt
+4. افتح Actions.
+5. اختر Build Solo Rift APK.
+6. اضغط Run workflow.
+7. انتظر عادة من 3 إلى 8 دقائق.
+8. افتح آخر تشغيل ناجح.
+9. من Artifacts حمّل SoloRift-debug-apk.
+10. فك الضغط وثبت app-debug.apk.
+
+إذا لم يظهر workflow:
+تأكد أن الملف موجود في هذا المسار:
+.github/workflows/build-apk.yml
